@@ -43,7 +43,10 @@
             this.style.backgroundPositionY = "-1714px";
         })
         document.getElementById("canvas").addEventListener('touchstart', function(ev){
-            slideBackground(this, ev.offsetX, ev.offsetY)
+            const rect = ev.target.getBoundingClientRect()
+            const offsetX = (ev.touches[0].clientX - window.scrollX - rect.left)
+            const offsetY = (ev.touches[0].clientY - window.scrollY - rect.top)
+            slideBackground(this, offsetX, offsetY)
         })
         document.getElementById("canvas").addEventListener('touchend', function(ev) {
             this.style.backgroundPositionX = "-3px";
