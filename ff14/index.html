@@ -46,6 +46,15 @@
             this.style.backgroundPositionX = "-3px";
             this.style.backgroundPositionY = "-1714px";
         }
+        document.getElementById("canvas").ontouchstart = function(ev){
+            // console.log(this);
+            // console.log(ev);
+            slideBackground(ev, this)
+        }
+        document.getElementById("canvas").ontouchend = function(ev){
+            this.style.backgroundPositionX = "-3px";
+            this.style.backgroundPositionY = "-1714px";
+        }
     }
     main();
 </script>
