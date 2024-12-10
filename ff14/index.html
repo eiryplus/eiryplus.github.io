@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<title></title>
+<style>
+    #canvas {
+        width: 955px;
+        height: 568px;
+        background: url("pattern.png") -3px -1714px;
+        margin: 20px;
+    }
+</style>
+<body>
 
+<div id="canvas"></div>
+</body>
+<script>
+    const clickAreaSize = {"x": 55, "y": 62};
+    const positions = [
+        {"coordinate": {"x": 247, "y": 503}, "background": {"x": 962, "y": 573}},   // f1
+        {"coordinate": {"x": 387, "y": 503}, "background": {"x": 962, "y": 2}},     // f2
+        {"coordinate": {"x": 530, "y": 503}, "background": {"x": 3, "y": 573}},  // f3
+        {"coordinate": {"x": 663, "y": 503}, "background": {"x": 3, "y": 1144}}, // f4
+        {"coordinate": {"x": 15,  "y": 180}, "background": {"x": 1920, "y": 2}},    // s1
+        {"coordinate": {"x": 15,  "y": 272}, "background": {"x": 1920, "y": 1714}}, // s2
+        {"coordinate": {"x": 900, "y": 180}, "background": {"x": 1920, "y": 573}},  // s3
+        {"coordinate": {"x": 900, "y": 272}, "background": {"x": 1920, "y": 1144}}, // S4
+    ];
+    function slideBackground(ev, element) {
+        const mx = ev.offsetX;
+        const my = ev.offsetY;
+        for (const p of positions) {
+            if (p.coordinate.x <= mx && mx <= p.coordinate.x+clickAreaSize.x && p.coordinate.y <= my && my <= p.coordinate.y+clickAreaSize.y) {
+                element.style.backgroundPositionX = (-p.background.x).toString()+"px";
+                element.style.backgroundPositionY = (-p.background.y).toString()+"px";
+                break;
+            }
+        }
+    }
+    function main() {
+        document.getElementById('canvas').onmousedown = function(ev){
+            // console.log(this);
+            // console.log(ev);
+            slideBackground(ev, this)
+        }
+        document.getElementById('canvas').onmouseup = function(ev){
+            this.style.backgroundPositionX = "-3px";
+            this.style.backgroundPositionY = "-1714px";
+        }
+    }
+    main();
+</script>
+</html>
