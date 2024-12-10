@@ -25,9 +25,7 @@
         {"coordinate": {"x": 900, "y": 180}, "background": {"x": 1920, "y": 573}},  // s3
         {"coordinate": {"x": 900, "y": 272}, "background": {"x": 1920, "y": 1144}}, // S4
     ];
-    function slideBackground(ev, element) {
-        const mx = ev.offsetX;
-        const my = ev.offsetY;
+    function slideBackground(element, mx, my) {
         for (const p of positions) {
             if (p.coordinate.x <= mx && mx <= p.coordinate.x+clickAreaSize.x && p.coordinate.y <= my && my <= p.coordinate.y+clickAreaSize.y) {
                 element.style.backgroundPositionX = (-p.background.x).toString()+"px";
@@ -37,24 +35,20 @@
         }
     }
     function main() {
-        document.getElementById('canvas').onmousedown = function(ev){
-            // console.log(this);
-            // console.log(ev);
-            slideBackground(ev, this)
-        }
-        document.getElementById('canvas').onmouseup = function(ev){
+        document.getElementById('canvas').addEventListener('mousedown', function(ev){
+            slideBackground(this, ev.offsetX, ev.offsetY)
+        })
+        document.getElementById('canvas').addEventListener('mouseup', function(ev){
             this.style.backgroundPositionX = "-3px";
             this.style.backgroundPositionY = "-1714px";
-        }
-        document.getElementById("canvas").ontouchstart = function(ev){
-            // console.log(this);
-            // console.log(ev);
-            slideBackground(ev, this)
-        }
-        document.getElementById("canvas").ontouchend = function(ev){
+        })
+        document.getElementById("canvas").addEventListener('touchstart', function(ev){
+            slideBackground(this, ev.changedTouches[0].pageX, ev.changedTouches[0].pageY)
+        })
+        document.getElementById("canvas").addEventListener('touchend', function(ev) {
             this.style.backgroundPositionX = "-3px";
             this.style.backgroundPositionY = "-1714px";
-        }
+        })
     }
     main();
 </script>
